@@ -1,32 +1,34 @@
-import { NavLink, Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import { AuthProvider } from "./context/AuthContext";
+import { CartProvider } from "./context/CartContext";
 import TodosPage from "./pages/TodosPage";
 import UsersPage from "./pages/UsersPage";
 import UserDetailPage from "./pages/UserDetailPage";
+import ShopPage from "./pages/ShopPage";
+import CheckoutPage from "./pages/CheckoutPage";
 import NotFound from "./pages/NotFound";
 import "./styles.css";
 
 export default function App() {
   return (
-    <div className="app">
-      <nav className="nav">
-        {/* NavLink instead of <a> — client-side navigation, no full reloads */}
-        <NavLink to="/todos" className={({ isActive }) => (isActive ? "active" : "")}>
-          Todos
-        </NavLink>
-        <NavLink to="/users" className={({ isActive }) => (isActive ? "active" : "")}>
-          Users
-        </NavLink>
-      </nav>
-
-      <main className="main">
-        <Routes>
-          <Route path="/" element={<Navigate to="/todos" replace />} />
-          <Route path="/todos" element={<TodosPage />} />
-          <Route path="/users" element={<UsersPage />} />
-          <Route path="/users/:id" element={<UserDetailPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
-    </div>
+    <AuthProvider>
+      <CartProvider>
+        <div className="app">
+          <NavBar />
+          <main className="main">
+            <Routes>
+              <Route path="/" element={<Navigate to="/todos" replace />} />
+              <Route path="/todos" element={<TodosPage />} />
+              <Route path="/users" element={<UsersPage />} />
+              <Route path="/users/:id" element={<UserDetailPage />} />
+              <Route path="/shop" element={<ShopPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+        </div>
+      </CartProvider>
+    </AuthProvider>
   );
 }
