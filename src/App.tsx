@@ -7,6 +7,7 @@ import UsersPage from "./pages/UsersPage";
 import UserDetailPage from "./pages/UserDetailPage";
 import ShopPage from "./pages/ShopPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import SearchDemoPage from "./pages/SearchDemoPage";
 import NotFound from "./pages/NotFound";
 import "./styles.css";
 
@@ -24,6 +25,7 @@ export default function App() {
               <Route path="/users/:id" element={<UserDetailPage />} />
               <Route path="/shop" element={<ShopPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/search" element={<SearchDemoPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

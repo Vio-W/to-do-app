@@ -200,3 +200,16 @@
   margin-top: 1rem;
   text-align: right;
 }
+
+.debounce-compare {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.debounce-compare > div {
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.75rem;
+}

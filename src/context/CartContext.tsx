@@ -1,4 +1,12 @@
-import { createContext, Dispatch, ReactNode, useContext, useReducer } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  useContext,
+  useEffect,
+  useReducer,
+} from "react";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export interface CartItem {
   id: number;
@@ -53,7 +61,15 @@ interface CartContextValue {
 const CartContext = createContext<CartContextValue | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [cart, dispatch] = useReducer(cartReducer, []);
+  const [persistedCart, setPersistedCart] = useLocalStorage<CartItem[]>(
+    "cart",
+    []
+  );
+  const [cart, dispatch] = useReducer(cartReducer, persistedCart);
+
+  useEffect(() => {
+    setPersistedCart(cart);
+  }, [cart, setPersistedCart]);
 
   return (
     <CartContext.Provider value={{ cart, dispatch }}>
